@@ -1,0 +1,14 @@
+const CatalogoList = ({products = []}) => {
+    return (
+        <div>
+            <h1>CatalogoList</h1>
+            {products.map(product => {
+                return ( 
+                    <div key={product.id}>{product.name}
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
+export default CatalogoList;
