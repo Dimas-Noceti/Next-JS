@@ -5,10 +5,21 @@ import { productos } from "../mock/productos";
 
 export default function Productos() {
     const [filtroProductos, setFiltroProductos] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
     useEffect(() => {
         setFiltroProductos(productos)
     }, []);
+
+    const handleFilter = () => {
+        if (selectedCategory) {
+            const filtered = productos.filter(producto => producto.category === selectedCategory)
+            setFiltroProductos(filtered)
+        } else {
+            setFiltroProductos(productos)
+        }
+    }
+
 
     console.log(filtroProductos)
     return (
@@ -20,8 +31,27 @@ export default function Productos() {
                         <h2 className="text-xl font-semibold">{producto.title}</h2>
                         <p className="text-gray-600">{producto.category}</p>
                         <p className="text-lg font-bold">${producto.price}</p>
+                        <button className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                        aria-label="Agregar al carrito">
+                            Agregar al carrito
+                        </button>
                     </div>  
                 ))}
+            </div>
+            <div className="flex justify-center mt-8">
+                <select 
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="">Todas</option>
+                    {Array.from(new Set(productos.map(producto => producto.category))).map((category, index) => (  
+                        <option key={index} value={category}>{category}</option>
+                        ))}
+                </select>
+                <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded" onClick={handleFilter}>
+                    Filtrar
+                </button>
             </div>
         </main>
     )
