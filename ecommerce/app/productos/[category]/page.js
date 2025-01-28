@@ -1,4 +1,5 @@
 import { productos } from "../../mock/productos";
+import { Suspense } from "react";
 
 
 export default function CategoryPage ({ params }) {
